@@ -1,0 +1,223 @@
+/* Author Mitchell Bucklew mbucklew@asu.edu */
+
+
+@import url(https://unpkg.com/chota@latest);
+
+:root {
+    --color-primary: purple; /* brand color */
+    --grid-maxWidth: 140rem;
+}
+
+table input {
+   /* filter:blur(4px); */
+}
+
+.svg-container, .center  {
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.container {
+    overflow-x: hidden;
+}
+
+
+td input {
+    /* filter: blur(4px); */
+}
+
+.dark {
+    --bg-color: #050015;
+    --bg-secondary-color: #131316;
+    --font-color: #f5f5f5;
+    --color-grey: #ccc;
+    --color-darkGrey: #777;
+}
+
+.dark .headerImage, .dark .tooltip, .dark .tabs img {
+    filter: invert(100%);
+}
+
+.icon {
+    height: 3em !important;
+    width:  3em !important;
+}
+
+#scene {
+    left: 0px !important;
+    width: 100% !important;
+    top: 0px !important;
+    height: 100% !important;
+}
+.gl-container, .plotly {
+    height: 100% !important;
+}
+
+.svg-container {
+    width: 100% !important;
+}
+
+
+.hiddenImage {
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
+}
+
+.error {
+    color: red;
+}
+
+.regular {
+    color:grey;
+}
+
+.headerImage {
+    height:2em;
+    max-height: 10em !important;
+}
+
+#myDiv {
+    border: var(--color-primary) !important;
+}
+
+
+.ui-widget-header {
+    background-color: var(--color-primary) !important;
+}
+
+
+.ui-widget-header {
+    background-color: var(--color-primary) !important;
+}
+
+canvas {
+    border: 2px solid var(--color-primary);
+}
+
+#leftS,#rightS,#slider-range {
+    text-align: center;
+    margin: 0;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+#leftS,#rightS {
+    position: absolute;
+}
+
+.vertical-align {
+    position:  relative;
+}
+
+.errorText {
+    border: 1px solid var(--color-error) !important;
+    background: gray;
+}
+
+
+.overlay {
+    /* Height & width depends on how you want to reveal the overlay (see JS below) */
+    height: 100%;
+    width: 100%;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    background-color: rgb(0,0,0); /* Black fallback color */
+    background-color: rgba(0,0,0, 0.9); /* Black w/opacity */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+}
+
+/* Position the content inside the overlay */
+.overlay-content {
+    position: relative;
+    top: 25%; /* 25% from the top */
+    width: 100%; /* 100% width */
+    text-align: center; /* Centered text/links */
+    margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
+}
+
+/* The navigation links inside the overlay */
+.overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block; /* Display block instead of inline */
+    transition: 0.3s; /* Transition effects on hover (color) */
+}
+
+/* When you mouse over the navigation links, change their color */
+.overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+}
+
+/* Position the close button (top right corner) */
+.overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+}
+
+/* TOOLTIP */
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    display: inline-block;
+
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1.0;
+}
+
+
+
+#selectView, #colorScale {
+    width: 20%;
+}

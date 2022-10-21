@@ -1,0 +1,180 @@
+<!-- Author Mitchell Bucklew mbucklew@asu.edu -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <title>Plume Documentation</title>
+    <link rel="icon" href="favicon.ico" type="image/gif" sizes="16x16">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script SRC='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+    <script>MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}})</script>
+</head>
+
+<body>
+<div class="container" display="none">
+    <section id="header">
+        <br>
+        <nav class="nav">
+            <div class="nav-left">
+                <a class="brand">
+                    <img class="headerImage" src="psyche.svg" alt="">
+                    <h6>Plume Visualization</h6>
+                </a>
+
+            </div>
+            <div class="nav-right">
+                <a class="button clear dark icon-only" id="viewMode"><img src="https://icongr.am/feather/moon.svg?size=16&color=000000" alt="Dark Mode" id="lightIcon">
+                    <img src="https://icongr.am/feather/sun.svg?size=16&color=ffffff" alt="Light Mode" id="darkIcon" hidden>
+                </a>
+
+                <div class="tabs">
+                    <a href="home.html"><img src="https://icongr.am/feather/home.svg?size=16&color=000000" alt="Home"></a>
+                    <a href="documentation.html" class="active"><img src="https://icongr.am/feather/book-open.svg?size=16&color=000000" alt="Documentation"></a>
+                    <a href="settings.html"><img src="https://icongr.am/feather/settings.svg?size=16&color=000000" alt="Documentation"></a>
+                </div>
+
+            </div>
+        </nav>
+        <br>
+        <hr>
+        <br>
+    </section>
+    <div class="row">
+        <h1>ASU 06B Psyche Hall Thruster Plum Data Analysis </h1>
+    </div>
+    <div class="row">
+        <p>Contact Info:  Mitchell Bucklew mbucklew@asu.edu</p>
+    </div>
+    <div class="row">
+        <h2>Visualization Info</h2>
+    </div>
+    <div class="row">
+            <p> This visualization front end does not require any setup or prerequisite software.
+            The entirety of the application has been done using HTML, Javascript, and CSS which can be used with any
+            modern web browser. We have tested this front end using Firefox however. This application utilizes the
+            comprehensive plotting framework plotly, as well as jQuery for other UI elements. Equations for the centroid
+            and angle calculations can be found below.</p>
+    </div>
+    <div class="row">
+        <p>The goal of this application is to allow NASA engineers to easily visualize hall thruster plume experimental
+            data, as well as provide access to centroid and degree calculations. After fitting the data using the Python backend,
+            the fitted probe data can be uploaded and visualized using this application.</p>
+    </div>
+    <div class="row">
+        <h4>How to use Visualization Application</h4>
+    </div>
+    <div class="row">
+        <ol>
+            <li>First upload data using upload button</li>
+            <li>Second modify the input elements and select the graph type, sweep angle, and color scheme</li>
+            <li>Third select refresh to update the display of data!</li>
+        </ol>
+    </div>
+    <div class="row">
+        <h2>Centroid Calculations</h2>
+    </div>
+    <div>
+        <p>
+
+            $$ \text { First translate the probe number into phi. The first probe at index 0 will result in an angle of   } $$
+            $$ \forall p_{i} \in [0,probetotal] \{ { ϕ_{i} = -22+i*2+90 } \}$$
+
+            $$ \text { Convert to radians for trig functions } $$
+
+            $$ \forall θ \in sweep \{ {θ_{r} = {θ {\pi \over 180 }}} \} $$
+            $$ \forall ϕ \in sweep \{ {ϕ_{r} = {ϕ {\pi \over 180 }}} \} $$
+
+            $$ \text { Now convert to cartisan } $$
+            $$ \forall θ_{r},ϕ_{r}  \{ {
+            \hspace{10mm}   x = r * \sin{θ} * \cos{ϕ}, \\
+            \hspace{10mm} y = r * \sin{ϕ} * \sin{θ}, \\
+            \hspace{10mm}   z = r * \cosϕ \hspace{10mm} \} } $$
+            $$ \text { Below are the series of equations which are used by the tool to calculate the centroid and centroid angle } $$
+            $$ x = {\sum_{i=1}^n w_{i} X_{i} \over \sum_{i=1}^n w_{i}},  y = {\sum_{i=1}^n w_{i} Y_{i} \over \sum_{i=1}^n w_{i}},  z = {\sum_{i=1}^n w_{i} Z_{i} \over \sum_{i=1}^n Z_{i}} $$
+            $$ r = \sqrt { x^2 + y^2 + z^2 } $$
+            $$ phi (ϕ) = tan^{-1} \sqrt{ x^2 + y^2  \over z }$$
+            $$ theta (θ) = tan^{-1}{ y \over x } $$
+            $$ Centroid Degree = tan^{-1} { x \ radius } $$
+
+        </p>
+    </div>
+    <div class="row">
+        <h2>Backend Instructions</h2>
+        <p>The application consists of two components. The portion which you are viewing now is the Visualization Frontend.
+            The backend contains the actual machine learning fit code, which consists of a single python file.
+            The python file starts by fitting all probes using the Pseudo Voigt function. There exists an error boundary
+            which marks certain probes among the dataset. The marked probes will then be fit with the machine
+            learning technique utilizing the tensorflow framework.
+
+        </p>
+        <h3>Python Requirements</h3>
+    </div>
+    <div>
+        <ul>
+            <li>python >= 3.8.8</li>
+            <li>Tensorflow == 2.3.0</li>
+            <li>lmfit == 1.0.2</li>
+            <li>pandas == 1.2.3</li>
+        </ul>
+    </div>
+    <div class="row">
+        <h3>Python Environment Setup</h3>
+    </div>
+    <div class="row">
+
+        <p>
+            Included in this software package is the requirements.txt. This file includes all package dependencies
+            required by main.py and can be used to setup the anaconda environment as shown below:
+            <code>conda create -n nasaEnvironment python=3.8.8 --file requirements.txt</code>
+            Now all that must be done is to activate the environment <code>conda activate nasaEnvironment</code>
+            within the Anaconda prompt.
+        </p>
+    </div>
+    <div class="row">
+        <h3>Python File Usage</h3>
+    </div>
+    <div class="row">
+        This script works by first attempting to fit all probes using the PsuedoVoigt fit method. If the PsuedoVoigt MSE is
+        larger than .04 than the program will mark the collector to be fit using Machine Learning. The program will attempt to
+        fit each of these marked probes using machine learning 5 times, using mse as the metric if the machine learning
+        fit is over .01, then it will continue trying. If a machine learning solution is never found, it will default to the
+        PsuedoVoigt fit. Note that these values can be modified using the <code>--maxerror</code> argument for the ML model
+        and <code>--maxVoigError</code> for the Voigt fit. <br>
+    </div>
+    <div class="row">
+        The Python backend uses a custom weighted MSE metric as shown below. This loss function weighs the difference
+        between the predicted current, and the measured probe current by the measured probe current. probeData in this case
+        is from the original input data and the y_predicted is the fitted probe current.
+        $$ WMSE = {\sum_{i=1}^n w_{i} *abs(w_{i}-y_predicted{i}) \over \sum_{i=1}^n w_{i}} $$
+        $$  w_{i} = probeData[i] $$
+    </div>
+    <div class="row">
+        <p>
+            Use <code>main.py --h</code> to display a list of all available arguments.
+            There are many arguments but the only required argument is the <code>--file</code> which specificies the input file.
+        </p>
+    </div>
+    <div class="row">
+        <p>
+            Below is several examples of usage of the <code>main.py</code> file for fitting plume data:
+        </p>
+    </div>
+    <div class="row">
+        <ul>
+            <li>main.py --file "CapstoneProj\Data For Students\data (1).txt" </li>
+            <li>main.py --file "CapstoneProj\Data For Students\data (1).txt" --output "fit(1).txt" --lr .00001</li>
+        </ul>
+    </div>
+    <div class="row"><p><br><br></p></div>
+</div>
+<script src="darkMode.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!-- Author Mitchell Bucklew mbucklew@asu.edu -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <title>Plume Settings</title>
+    <link rel="icon" href="favicon.ico" type="image/gif" sizes="16x16">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+<div class="container" display="none">
+    <section id="header">
+        <br>
+        <nav class="nav">
+            <div class="nav-left">
+                <a class="brand" href="#">
+                    <img class="headerImage" src="psyche.svg" alt="">
+                </a>
+
+            </div>
+            <div class="nav-right">
+                <a class="button clear dark" id="viewMode">
+                    <img src="https://icongr.am/feather/moon.svg?size=16&color=000000" alt="Dark Mode" id="lightIcon">
+                    <img src="https://icongr.am/feather/sun.svg?size=16&color=ffffff" alt="Light Mode" id="darkIcon" hidden>
+                </a>
+
+                <div class="tabs">
+                    <a href="home.html"><img src="https://icongr.am/feather/home.svg?size=16&color=000000" alt="Home"></a>
+                    <a href="documentation.html"><img src="https://icongr.am/feather/book-open.svg?size=16&color=000000" alt="Documentation"></a>
+                    <a class="active"><img src="https://icongr.am/feather/settings.svg?size=16&color=000000" alt="Documentation"></a>
+                </div>
+
+            </div>
+        </nav>
+        <br>
+        <hr>
+        <br>
+    </section>
+    <input type="file" id="inputFile" style="display:none;">
+
+    <div class="row">
+        <div class="col">
+            <h2>Settings Page</h2>
+        </div>
+    </div>
+
+
+    <fieldset id="forms__html5">
+        <legend>HTML5 inputs</legend>
+        <p>
+            <label for="colorModule">Color input</label>
+            <input type="color" value="#ff0000" id="colorModule">
+        </p>
+    </fieldset>
+</div>
+<script src="darkMode.js"></script>
+<script src="settings.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,251 @@
+<!-- Author Mitchell Bucklew mbucklew@asu.edu -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <title>Plume Visualization</title>
+    <link rel="icon" href="favicon.ico" type="image/gif" sizes="16x16">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/3.4.0/introjs.min.css" integrity="sha512-631ugrjzlQYCOP9P8BOLEMFspr5ooQwY3rgt8SMUa+QqtVMbY/tniEUOcABHDGjK50VExB4CNc61g5oopGqCEw==" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/3.4.0/intro.min.js" integrity="sha512-QWPjvFqgUJv5X6Sq5NXmwJQSEzUEBxmCCcgqJd5/5luZnS6llRbshsChUNKrFlZ4bshKZEJxAHDB+WWdMsGvUA==" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<div class="container" display="none">
+    <section id="header">
+        <br>
+        <nav class="nav">
+            <div class="nav-left">
+                <a class="brand">
+                    <img class="headerImage" src="psyche.svg" alt="">
+                    <h6>Plume Visualization</h6>
+                </a>
+
+            </div>
+            <div class="nav-right">
+                <a class="button clear dark icon-only" id="viewMode">
+                    <img src="https://icongr.am/feather/moon.svg?size=16&color=000000" alt="Dark Mode" id="lightIcon">
+                    <img src="https://icongr.am/feather/sun.svg?size=16&color=ffffff" alt="Light Mode" id="darkIcon" hidden>
+                </a>
+
+                <div class="tabs">
+                    <a class="active"><img src="https://icongr.am/feather/home.svg?size=16&color=000000" alt="Home"></a>
+                    <a href="documentation.html"><img src="https://icongr.am/feather/book-open.svg?size=16&color=000000" alt="Documentation"></a>
+                    <a href="settings.html"><img src="https://icongr.am/feather/settings.svg?size=16&color=000000" alt="Documentation"></a>
+                </div>
+
+            </div>
+        </nav>
+        <br>
+        <hr>
+        <br>
+    </section>
+
+    <input type="file" id="inputFile" style="display:none;">
+
+    <div class="row">
+        <div class="col">
+            <fieldset id="forms__input" data-title="Welcome!" data-intro="This is the container
+            for all controls on the graph.">
+            <legend>Graph Controls</legend>
+                <p>
+                    <button type="button" class="button primary" id="input" data-intro="First start here by uploading the data">
+                        Upload
+                        <img src="https://icongr.am/feather/file.svg?size=16&color=ffffff" alt="icon">
+                    </button>
+                    <button type="button" class="button primary" id="tutorial">
+                        Show Tutorial
+                    </button>
+                </p>
+                <span data-title="Sweep Angle" data-intro="Now set the desired sweep angle range to be included.
+                This feature works for all graph types besides 'curve' and 'histogram'.">
+                <p>
+                    <label for="slider-range">Sweep & Probe Angle Range </label>
+                    <button type="button" class="button clear icon-only tooltip" id="sweepToolTip">
+                        <img src="https://icongr.am/feather/info.svg?size=16&color=currentColor" alt="tooltip">
+                        <span class="tooltiptext">The Cartisan x and y range to be displayed </span>
+                    </button>
+                    <a class="button dark icon-only tooltip" id="resetAngle" data-intro="You can reset to the default -22 to 22 degrees by using this button">
+                        <img src="https://icongr.am/feather/refresh-ccw.svg?size=16&amp;color=ffffff" alt="Dark Mode">
+                        <span class="tooltiptext">Reset Angle</span>
+                    </a>
+                <div class="row">
+
+                    <div class="col-2 vertical-align">
+                        <input type="number" id="leftS" style="font-weight:bold;">
+                    </div>
+                    <div class="col vertical-align">
+                        <div id="slider-range"></div>
+                    </div>
+                    <div class="col-2 vertical-align">
+                        <input type="number" id="rightS" style="font-weight:bold;">
+                    </div>
+
+                </div>
+                    </p>
+                    </span>
+            <p class="grouped is-center">
+
+                    <label for="selectView">Graph Type</label>
+                    <select id="selectView"
+                            data-intro="Now select the graph type.
+                            Graph types included are:<br>
+                            - Line plot<br>
+                            - Scatter plot with heatmap<br>
+                            - Curve plot showing the actual collection sites on a hempishere<br>
+                            - Surface traingulation of the data with heatmap<br>
+                            - Contour heatmap using colorscheme.<br>
+                            - Histogram of sweep angle Dsitribution<br>
+                            ">
+                        <option value="line" name="type" >Line Plot</option>
+                        <option value="scatter">Scatter Plot</option>
+                        <option value="curve">Curve Plot</option>
+                        <option value="surface">Surface Plot</option>
+                        <option value="contour">Contour</option>
+                        <option value="histogram">Histogram</option>
+                    </select>
+
+
+                <label for="colorScale">Color Scheme</label>
+                <select id="colorScale" name="colorScale" data-intro="Now select the color scheme.
+                This is supported on all graphs except for the line and histogram plots. ">
+                    <option value="Jet">Jet</option>
+                    <option value="Hot">Hot</option>
+                    <option value="Rainbow">Rainbow</option>
+                    <option value="Portland">Portland</option>
+                    <option value="Blackbody">Blackbody</option>
+                    <option value="Electric">Electric</option>
+                    <option value="Picnic">Picnic</option>
+                    <option value="psyche">Psyche</option>
+                </select>
+            </p>
+
+            <p>
+                <button type="button" class="button secondary" id="refresh" disabled data-intro="Finally display the data!">
+                    Display
+                    <img src="https://icongr.am/feather/refresh-cw.svg?size=16&color=ffffff" alt="icon">
+                </button>
+
+            </p>
+
+
+        </fieldset>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div id="container">
+            <p>
+                <button type="button" class="button primary" id="toggle_fullscreen">
+                    Go Fullscreen
+                    <img src="https://icongr.am/feather/zoom-in.svg?size=16&color=ffffff" alt="icon">
+                </button>
+            </p>
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="col">
+            <div id="myDiv" class="center"></div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col">
+            <fieldset>
+                <legend>Data Output</legend>
+            <table style="width:100%">
+                <tr>
+                    <th>Data</th>
+                    <th class="is-center">Result</th>
+                </tr>
+                <tr>
+                    <td>Centroid Cartesian
+                        <button type="button" class="button clear icon-only tooltip">
+                            <img src="https://icongr.am/feather/info.svg?size=16&color=currentColor" alt="tooltip">
+                            <span class="tooltiptext">Weighted Mean</span>
+                    </button></td>
+                    <td class="is-center">X, Y, Z</td>
+                    <td><input id="xCentroid" readonly></td>
+                    <td><input id="yCentroid" readonly></td>
+                    <td><input id="zCentroid" readonly></td>
+                    <td>
+                        <a class="button dark icon-only tooltip" id="copyCentroid">
+                            <img src="https://icongr.am/feather/copy.svg?size=16&color=ffffff" alt="Dark Mode">
+                            <span class="tooltiptext">Copy to Clipboard</span>
+                        </a>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td >Degree of Centroid
+                        <button type="button" class="button clear icon-only tooltip">
+                            <img src="https://icongr.am/feather/info.svg?size=16&color=000000" alt="tooltip">
+                            <span class="tooltiptext">arcos (radius / x component )</span>
+                        </button>
+                    </td>
+                    <td class="is-center">°</td>
+                    <td><input id="cDegree" readonly></td>
+                    <td>
+                        <a class="button dark icon-only tooltip" id="copyDegree">
+                            <img src="https://icongr.am/feather/copy.svg?size=16&color=ffffff" alt="Dark Mode">
+                            <span class="tooltiptext">Copy to Clipboard</span>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Centroid Polar °
+                        <button type="button" class="button clear icon-only tooltip">
+                            <img src="https://icongr.am/feather/info.svg?size=16&color=000000" alt="tooltip">
+                            <span class="tooltiptext">Weighted Mean in Degrees</span>
+                        </button></td>
+                    <td class="is-center">r, θ, ϕ</td>
+                    <td><input id="radius" readonly></td>
+                    <td><input id="theta" readonly></td>
+                    <td><input id="phi" readonly></td>
+                    <td>
+                        <a class="button icon-only tooltip dark" id="copyPolar">
+                            <img src="https://icongr.am/feather/copy.svg?size=16&color=ffffff" alt="Dark Mode">
+                            <span class="tooltiptext">Copy to Clipboard</span>
+                        </a>
+                    </td>
+
+                </tr>
+            </table>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col is-left">
+            <h4>Console</h4>
+        </div>
+        <div class="col is-right">
+            <button type="button" class="button primary is-marginless " id="clearConsole">
+                Clear
+                <img src="https://icongr.am/feather/trash-2.svg?size=16&color=ffffff" alt="icon">
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <pre style="overflow: scroll;height:20em;"><code class="language-css" data-lang="css" id="codeTag" > <span class="p"></span>
+            </code>
+            </pre>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="main.js"></script>
+<script src="darkMode.js"></script>
+
+</body>
+
+</html>
